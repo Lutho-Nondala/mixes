@@ -5,6 +5,9 @@ import com.sound.mixes.repository.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Set;
+
 @Service
 public class ArtistService implements IArtistService{
     @Autowired
@@ -28,5 +31,22 @@ public class ArtistService implements IArtistService{
     @Override
     public void delete(Long aLong) {
         this.artistRepository.deleteById(aLong);
+    }
+
+    @Override
+    public Artist findArtistByName(String name) {
+        List<Artist> artists = this.getAll();
+
+        for (Artist a: artists){
+            if (a.getName().equals(name)){
+                return a;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<Artist> getAll() {
+        return this.artistRepository.findAll();
     }
 }

@@ -1,5 +1,6 @@
 package com.sound.mixes.controller;
 
+import com.sound.mixes.domain.Artist;
 import com.sound.mixes.domain.Song;
 import com.sound.mixes.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,8 @@ public class SongController {
     private SongService songService;
 
     @PostMapping("create")
-    public ResponseEntity<Song> create(@RequestBody Song song){
-        return ResponseEntity.ok(this.songService.create(song));
+    public ResponseEntity<Song> create(@RequestPart("song") Song song, @RequestPart("artist")Artist artist){
+        return ResponseEntity.ok(this.songService.addSong(song, artist));
     }
 
     @GetMapping("read/{id}")
